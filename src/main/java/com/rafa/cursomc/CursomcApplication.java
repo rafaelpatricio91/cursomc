@@ -34,7 +34,7 @@ public class CursomcApplication implements CommandLineRunner {
 //		INSTANCIA PRODUTOS
 		Produto p1 = new Produto(null, "Grampeador", 12.0);
 		Produto p2 = new Produto(null, "Notebook Avell", 13000.0);
-		Produto p3 = new Produto(null, "Impressora HP 18c", 28.0);
+		Produto p3 = new Produto(null, "Impressora HP 18c", 260.0);
 		
 		c1.getProdutos().addAll(Arrays.asList(p2,p3));
 		c2.getProdutos().addAll(Arrays.asList(p1,p3));

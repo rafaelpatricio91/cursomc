@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rafa.cursomc.model.Categoria;
 import com.rafa.cursomc.service.CategoriaService;
 
+import javassist.tools.rmi.ObjectNotFoundException;
+
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource
