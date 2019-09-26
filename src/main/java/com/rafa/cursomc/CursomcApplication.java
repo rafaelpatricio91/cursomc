@@ -8,13 +8,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.rafa.cursomc.model.Categoria;
+import com.rafa.cursomc.model.Produto;
 import com.rafa.cursomc.repository.CategoriaRepository;
+import com.rafa.cursomc.repository.ProdutoRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categorias;
+	@Autowired
+	private ProdutoRepository produtos;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -23,24 +27,24 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception
 	{
-		Categoria c = new Categoria();
-		Categoria c2 = new Categoria();
-		Categoria c3 = new Categoria();
-		Categoria c4 = new Categoria();
+//		INSTANCIA CATEGORIAS
+		Categoria c1 = new Categoria(null,"Informática");
+		Categoria c2 = new Categoria(null, "Escritório");
 		
-		c.setId(null);
-		c.setNome("Informática");
+//		INSTANCIA PRODUTOS
+		Produto p1 = new Produto(null, "Grampeador", 12.0);
+		Produto p2 = new Produto(null, "Notebook Avell", 13000.0);
+		Produto p3 = new Produto(null, "Impressora HP 18c", 28.0);
 		
-		c2.setId(null);
-		c2.setNome("Escritório");
+		c1.getProdutos().addAll(Arrays.asList(p2,p3));
+		c2.getProdutos().addAll(Arrays.asList(p1,p3));
 		
-		c3.setId(null);
-		c3.setNome("Farmácia");
+		p1.getCategorias().addAll(Arrays.asList(c2));
+		p2.getCategorias().addAll(Arrays.asList(c1));
+		p3.getCategorias().addAll(Arrays.asList(c1,c2));
 		
-		c4.setId(null);
-		c4.setNome("Sacolão");
-		
-		categorias.saveAll(Arrays.asList(c,c2,c3,c4) );
+		categorias.saveAll(Arrays.asList(c1,c2) );
+		produtos.saveAll(Arrays.asList(p1,p2,p3));
 	}
 
 }
