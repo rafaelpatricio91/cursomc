@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.rafa.cursomc.model.Categoria;
+import com.rafa.cursomc.model.Cidade;
+import com.rafa.cursomc.model.Estado;
 import com.rafa.cursomc.model.Produto;
 import com.rafa.cursomc.repository.CategoriaRepository;
+import com.rafa.cursomc.repository.CidadeRepository;
+import com.rafa.cursomc.repository.EstadoRepository;
 import com.rafa.cursomc.repository.ProdutoRepository;
 
 @SpringBootApplication
@@ -19,6 +23,10 @@ public class CursomcApplication implements CommandLineRunner {
 	private CategoriaRepository categorias;
 	@Autowired
 	private ProdutoRepository produtos;
+	@Autowired
+	private EstadoRepository estados;
+	@Autowired
+	private CidadeRepository cidades;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -45,6 +53,23 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		categorias.saveAll(Arrays.asList(c1,c2) );
 		produtos.saveAll(Arrays.asList(p1,p2,p3));
+		
+//		CIDADES E ESTADOS
+		Estado e1 = new Estado(null, "RJ");
+		Estado e2 = new Estado(null, "SP");
+		Estado e3 = new Estado(null, "SC");
+		
+		Cidade ci1 = new Cidade(null, "Queimados", e1);
+		Cidade ci2 = new Cidade(null, "Balneário Camboriú", e3);
+		Cidade ci3 = new Cidade(null, "Guaratinguetá", e2);
+		Cidade ci4 = new Cidade(null, "Diadema", e2);
+		Cidade ci5 = new Cidade(null, "Osasco", e2);
+		Cidade ci6 = new Cidade(null, "Paracambi", e1);
+		Cidade ci7 = new Cidade(null, "Petrópolis", e1);
+		
+		estados.saveAll(Arrays.asList(e1,e2,e3) );
+		cidades.saveAll(Arrays.asList(ci1,ci2,ci3,ci4,ci5,ci6,ci7) );
+		
 	}
 
 }
