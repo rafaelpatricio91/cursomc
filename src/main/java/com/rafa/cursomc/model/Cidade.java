@@ -46,6 +46,7 @@ public class Cidade implements Serializable
 	{
 		this.estado = estado;
 	}
+	
 	@Override
 	public int hashCode()
 	{
