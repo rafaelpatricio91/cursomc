@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.rafa.cursomc.model.Categoria;
 import com.rafa.cursomc.model.Cidade;
+import com.rafa.cursomc.model.Cliente;
+import com.rafa.cursomc.model.Endereco;
 import com.rafa.cursomc.model.Estado;
 import com.rafa.cursomc.model.Produto;
+import com.rafa.cursomc.model.TipoCliente;
 import com.rafa.cursomc.repository.CategoriaRepository;
 import com.rafa.cursomc.repository.CidadeRepository;
+import com.rafa.cursomc.repository.ClienteRepository;
+import com.rafa.cursomc.repository.EnderecoRepository;
 import com.rafa.cursomc.repository.EstadoRepository;
 import com.rafa.cursomc.repository.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class CursomcApplication implements CommandLineRunner {
 	private EstadoRepository estados;
 	@Autowired
 	private CidadeRepository cidades;
+	@Autowired
+	private ClienteRepository clientes;
+	@Autowired
+	private EnderecoRepository enderecos;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -55,20 +64,32 @@ public class CursomcApplication implements CommandLineRunner {
 		produtos.saveAll(Arrays.asList(p1,p2,p3));
 		
 //		CIDADES E ESTADOS
-		Estado e1 = new Estado(null, "RJ");
-		Estado e2 = new Estado(null, "SP");
-		Estado e3 = new Estado(null, "SC");
+		Estado es1 = new Estado(null, "RJ");
+		Estado es2 = new Estado(null, "SP");
+		Estado es3 = new Estado(null, "SC");
 		
-		Cidade ci1 = new Cidade(null, "Queimados", e1);
-		Cidade ci2 = new Cidade(null, "Balneário Camboriú", e3);
-		Cidade ci3 = new Cidade(null, "Guaratinguetá", e2);
-		Cidade ci4 = new Cidade(null, "Diadema", e2);
-		Cidade ci5 = new Cidade(null, "Osasco", e2);
-		Cidade ci6 = new Cidade(null, "Paracambi", e1);
-		Cidade ci7 = new Cidade(null, "Petrópolis", e1);
+		Cidade ci1 = new Cidade(null, "Queimados", es1);
+		Cidade ci2 = new Cidade(null, "Balneário Camboriú", es3);
+		Cidade ci3 = new Cidade(null, "Guaratinguetá", es2);
+		Cidade ci4 = new Cidade(null, "Diadema", es2);
+		Cidade ci5 = new Cidade(null, "Osasco", es2);
+		Cidade ci6 = new Cidade(null, "Paracambi", es1);
+		Cidade ci7 = new Cidade(null, "Petrópolis", es1);
 		
-		estados.saveAll(Arrays.asList(e1,e2,e3) );
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA);
+		
+		estados.saveAll(Arrays.asList(es1,es2,es3) );
 		cidades.saveAll(Arrays.asList(ci1,ci2,ci3,ci4,ci5,ci6,ci7) );
+		
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, ci1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, ci2);
+		
+		cli1.getListaEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clientes.saveAll(Arrays.asList(cli1));
+		enderecos.saveAll(Arrays.asList(e1, e2));
 		
 	}
 
