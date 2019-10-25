@@ -9,8 +9,6 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +36,9 @@ public class Cliente implements Serializable
 	
 	@ElementCollection @CollectionTable(name="telefone")
 	private Set<String> telefones = new HashSet<>();
+	
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> listaPedidos = new ArrayList<>();
 	
 	public Integer getId()
 	{
@@ -95,8 +96,21 @@ public class Cliente implements Serializable
 	{
 		this.telefones = telefones;
 	}
+	public List<Pedido> getListaPedidos()
+	{
+		return listaPedidos;
+	}
+	public void setPedidos(List<Pedido> listaPedidos)
+	{
+		this.listaPedidos = listaPedidos;
+	}
+	public void setTipo(Integer tipo)
+	{
+		this.tipo = tipo;
+	}
 	public Cliente()
 	{}
+	
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo)
 	{
 		super();
@@ -106,6 +120,17 @@ public class Cliente implements Serializable
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = tipo.getCodigo();
 	}
+	
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, Integer tipo)
+	{
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.tipo = tipo;
+	}
+	
 	@Override
 	public int hashCode()
 	{
@@ -132,4 +157,5 @@ public class Cliente implements Serializable
 			return false;
 		return true;
 	}
+
 }
